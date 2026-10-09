@@ -10,6 +10,23 @@
 </head>
 <body>
     <h1><%= title %></h1>
-    Hello EJS!
+    <a href="/filter">Filter</a>
+    <a href="/new">Felvétel</a>
+    <table>
+        <tr>
+            <th>Termék neve</th>
+            <th>Kategória</th>
+            <th>Ár</th>
+            <th>Raktárkészlet</th>
+        </tr>
+        <% table.forEach((termek) => { %>
+            <tr style="<%= termek.stock == 0 ? 'color: red; font-weight: bold;' : '' %>">
+                <td><%= termek.name %></td>
+                <td><%= termek.category %></td>
+                <td><%= termek.price %></td>
+                <td style="<%= termek.stock > 0 && termek.stock < 5 ? 'color: red; font-weight: bold;' : '' %>"><%= termek.stock %></td>
+            </tr>
+        <% }); %>
+    </table>
 </body>
 </html>

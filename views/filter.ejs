@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1><%= title %></h1>
+    <a href="/">Home</a>
+    <a href="/new">Felvétel</a>
+
+    <form method="GET">
+        <label for="category">Choose a category:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <% categories.forEach((category) => { %>
+                <option value="<%= category %>" <%= selectedCategory == category ? "selected" : "" %>><%= category %></option>
+            <% }); %>
+        </select>
+    </form>
+    <table>
+        <tr>
+            <th>Termék neve</th>
+            <th>Kategória</th>
+            <th>Ár</th>
+            <th>Raktárkészlet</th>
+        </tr>
+        <% table.forEach((termek) => { %>
+            <tr style="<%= termek.stock == 0 ? 'color: red; font-weight: bold;' : '' %>">
+                <td><%= termek.name %></td>
+                <td><%= termek.category %></td>
+                <td><%= termek.price %></td>
+                <td style="<%= termek.stock > 0 && termek.stock < 5 ? 'color: red; font-weight: bold;' : '' %>"><%= termek.stock %></td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

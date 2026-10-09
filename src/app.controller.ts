@@ -132,7 +132,7 @@ export class AppController {
     return {
       title: 'Felvétel',
       categories: categories,
-      success: true // Sikeres felvitel jelzése a sablonnak
+      success: true
     };
   }
 }

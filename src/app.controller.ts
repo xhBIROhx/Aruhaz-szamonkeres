@@ -1,5 +1,6 @@
-import { Controller, Get, Render, Query} from '@nestjs/common';
+import { Controller, Get, Post, Render, Query, Body} from '@nestjs/common';
 import { AppService } from './app.service.js';
+import CreateProductDto from './create-product.dto.js';
 
 interface Product {
   name: string,
@@ -94,7 +95,7 @@ export class AppController {
   @Render("filter")
   getFilter(@Query('category') category: string) {
     return {
-      title: 'Terméklista',
+      title: 'Filter',
       table: termekek
         .filter((element) => {if (category) {
           return element.category == category
@@ -105,5 +106,33 @@ export class AppController {
       categories: categories,
       selectedCategory: category
     }
+  }
+
+  @Get("/new")
+  @Render("new")
+  getNew() {
+    return {
+      title: 'Felvétel',
+      categories: categories,
+      success: false
+    }
+  }
+
+  @Post("/new")
+  @Render('new')
+  createNewProduct(@Body() createProductDto: CreateProductDto) {
+    const ujTermek: Product = {
+      name: createProductDto.name,
+      category: createProductDto.category,
+      price: Number(createProductDto.price),
+      stock: Number(createProductDto.stock)
+    };
+    termekek.push(ujTermek);
+
+    return {
+      title: 'Felvétel',
+      categories: categories,
+      success: true // Sikeres felvitel jelzése a sablonnak
+    };
   }
 }

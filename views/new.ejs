@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <a href="/">Home</a>
+    <a href="/filter">Filter</a>
+
+    <form method="POST" action="/new">
+        <div>
+            <label for="name">Név:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="category">Kategória:</label>
+            <select id="category" name="category" required>
+                <% categories.forEach((category)=> { %>
+                    <option value="<%= category %>"><%= category %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div>
+            <label for="price">Ár:</label>
+            <input type="number" id="price" name="price" required>
+        </div>
+        <div>
+            <label for="stock">Raktárkészlet:</label>
+            <input type="number" id="stock" name="stock" required>
+        </div>
+        <button type="submit">Termék mentése</button>
+    </form>
+
+    <% if (success) { %>
+        <p style="color: green;">Sikeres felvitel!</p>
+    <% } %>
+</body>
+
+</html>
